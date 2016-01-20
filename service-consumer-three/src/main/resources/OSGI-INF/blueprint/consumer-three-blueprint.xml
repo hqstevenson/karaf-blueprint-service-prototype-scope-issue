@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="
+       http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+    <reference id="test-service" interface="com.pronoia.karaf.service.TestService" timeout="2000" />
+
+    <camelContext id="consumer-three-context" xmlns="http://camel.apache.org/schema/blueprint">
+        <route id="consumer-three-route">
+            <from uri="timer://consumer-three"/>
+            <log message="Timer Fired"/>
+            <setBody>
+                <method ref="test-service" method="execute"/>
+            </setBody>
+            <log message="Consumer Three Result: ${body}"/>
+            <to uri="mock://result"/>
+        </route>
+    </camelContext>
+
+</blueprint>
