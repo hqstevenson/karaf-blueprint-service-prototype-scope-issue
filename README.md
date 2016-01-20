@@ -1,0 +1,1 @@
+# karaf-blueprint-service-prototype-scope-issue
